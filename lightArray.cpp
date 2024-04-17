@@ -32,17 +32,23 @@ void lightArraySampleSensors()
     if (g_muxADCReadings[i] > g_sensorBaseline[i])
 		  g_sensorIntensityVector.element[i][0] = lightArrayReMapADC<uint16_t>(minValue, maxValue, g_muxADCReadings[i]-g_sensorBaseline[i]);//temp[i];//  //converts range uint16_t [0, 65535] to float [0, 1]
     else
-      g_sensorIntensityVector.element[i][0] = lightArrayReMapADC<uint16_t>(minValue, maxValue, minValue);
+      g_sensorIntensityVector.element[i][0] = lightArrayReMapADC<uint16_t>(minValue, maxValue, 0);
+      //g_sensorIntensityVector.element[i][0] = lightArrayReMapADC<uint16_t>(minValue, maxValue, g_muxADCReadings[i]);
   }
   return;
 }
 
 void lightArrayBaseline()
 {
-	uint32_t dummy = 0;
-  muxControlReadPins(g_muxControlPinMap, g_binaryMappingToControlLinePins, g_muxADCReadings, dummy, g_sensorCount); //take baseline
 	for (uint32_t i = 0; i < g_sensorCount; i++)
-		g_sensorBaseline[i] = g_muxADCReadings[i];
+		g_sensorBaseline[i] = 0;
+	uint32_t dummy = 0;
+	for (uint32_t j = 0; j < 10; j++)
+  {
+    muxControlReadPins(g_muxControlPinMap, g_binaryMappingToControlLinePins, g_muxADCReadings, dummy, g_sensorCount); //take baseline
+    for (uint32_t i = 0; i < g_sensorCount; i++)
+      g_sensorBaseline[i] += g_muxADCReadings[i]/10;
+  }
   return;
 }
 

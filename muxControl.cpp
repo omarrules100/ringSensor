@@ -133,7 +133,7 @@ void muxControlReadPins(const muxControlPinMap controlPinMap, const uint32_t* de
 
 		muxControlWriteControlPins(controlPinMap, decimalBinaryMapping[i]); //assert new control line values
 		//for (int j = 0; j < 2; j++) //we require 24 ns to account for max propagation, there is about 6 cycles per loop = 12.5 ns, so require 2 loops for total of 25 ns
-		delayMicroseconds(500000);
+		delayMicroseconds(400000);
     //asm volatile("nop"); asm volatile("nop"); asm volatile("nop"); asm volatile("nop"); asm volatile("nop"); asm volatile("nop"); //delays for one clock cycle, aka 2.083ns if 480 MHz [asm volatile("nop")] <--In arduino sketches
 		//asm volatile("nop"); asm volatile("nop"); asm volatile("nop"); asm volatile("nop"); asm volatile("nop"); asm volatile("nop");
 		ADC_reading[i] = muxControlReadPin();//(uint16_t)(temp[i] * 65535);//muxControlReadPin();//(uint16_t)(temp[i] * 65535);//muxControlReadPin(); //read adc reading

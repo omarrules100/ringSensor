@@ -9,6 +9,7 @@ float* testIntensityReadings;
 void setup() {
   // put your setup code here, to run once:
 
+  pinMode(LED_BUILTIN, OUTPUT);
 	activeSensor= 0; //currently selected sensor
 	testIntensityReadings = nullptr; //initialize test intensity readings
 	lightArrayInit(activeSensor); //initialize mux controls
@@ -19,7 +20,22 @@ void setup() {
   pinMode(D2, OUTPUT);
   pinMode(D1, OUTPUT);
   lightArrayBaseline(); //take baseline
-  
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(100);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  delay(100);                      // wait for a second
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(100);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  delay(100);                      // wait for a second
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(100);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  delay(100);                      // wait for a second
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(100);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
 }
 
 void loop() {
@@ -39,9 +55,17 @@ void loop() {
   Serial.print("]: ");
   Serial.print(100*g_sensorIntensityVector.element[i][0],5);
   Serial.print("% - ");
-  Serial.print(g_muxADCReadings[i]);
+  Serial.println(g_muxADCReadings[i]);
   }
   Serial.println(lightArrayCalculateAoAD(),32);
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(200);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+  delay(200);                      // wait for a second
+  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
+  delay(200);                      // wait for a second
+  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
+
   // Serial.println("Sensor[1]: ");
   // Serial.println(testIntensityReadings[1],32);
   // Serial.println("Sensor[2]: ");
